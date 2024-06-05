@@ -1,0 +1,30 @@
+1.create table Employee(fname char(20), minit char(20),lname char(20),SSN number(10) primary key ,
+    bdate date, address char(100),gender char , salary number(6),superssn number(10) references Employee(SSN),
+    DNO number(5) not null);
+
+2.create table Department(DNumber number(5) primary key,
+    Dname char(10) unique,
+    mgrssn number(10) default 1111,
+  unique(mgrssn) ,
+    sdate date, 
+    foreign key (mgrssn) references Employee(SSN) on delete set null);
+
+3.alter table Employee add foreign key (dno) references Department; 
+
+4.create table depLocation(dlocation char(40),
+    					dnum number(5),
+    					primary key(dlocation,dnum),
+    					foreign key (dnum) references department(dnumber) on delete cascade);
+
+
+
+5.create table project (pnumber number(3) primary key,
+    					pname char(20) unique,
+    					dnum number (5) references department (dnumber),
+    					check(dnum is not null)
+    
+    );
+
+
+6.create table dependant(essn number (10) ,foreign key (essn)  references employee(SSN),name char(20),primary key(essn,name),bdate date,gender char,relationship char
+    );
