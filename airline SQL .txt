@@ -1,0 +1,63 @@
+create table airline (alcode number(9) primary key,alname char(30),pcode number(9));
+
+create table runway(rcode number(9) primary key, rstatus char(10), mdate date,mslot char(5));
+
+create table flight(alcode number(9) ,foreign key(alcode) references airline(alcode) on delete cascade, flno number(9),primary key(flno,alcode),fmodel char(10),fstatues char(5));
+
+create table timeslot(sdate date,sslot char(5) primary key);
+
+create table schedual(  sslot char(5),
+    rcode number(9),alcode number(9),flno number(9),primary key(sslot, rcode, alcode, flno),foreign key(sslot) references timeslot(sslot),foreign key(rcode) references runway(rcode),
+    foreign key(alcode, flno) references flight(alcode, flno));
+
+
+INSERT INTO airline 
+VALUES(1, 'heloo',999);
+
+INSERT INTO airline   
+VALUES(2,'yess',111);
+
+
+INSERT INTO flight 
+VALUES(3,2,'one','two');
+
+
+INSERT INTO flight 
+VALUES(3,2,'one','two')
+
+INSERT INTO flight   
+VALUES(4,2,'one','two')
+
+
+INSERT INTO airline (1, 'Airline 1', 100);
+INSERT INTO airline (2, 'Airline 2', 200);
+
+INSERT INTO runway (1, 'Active', TO_DATE('2024-04-13','YYYY-MM-DD'), 'Slot1');
+INSERT INTO runway (2, 'Inactive', TO_DATE('2024-04-14','YYYY-MM-DD'), 'Slot2');
+
+INSERT INTO flight (1, 101, 'Model1', 'Active');
+INSERT INTO flight (2, 202, 'Model2', 'Inactive');
+
+INSERT INTO timeslot  (TO_DATE('2024-04-15','YYYY-MM-DD'), 'Slot1');
+INSERT INTO timeslot  (TO_DATE('2024-04-16','YYYY-MM-DD'), 'Slot2');
+
+INSERT INTO schedual  VALUES ('Slot1', 1, 1, 101);
+INSERT INTO schedual  VALUES ('Slot2', 2, 2, 202);
+
+
+
+alter table airline modify pcode not null
+Table altered.
+
+
+UPDATE airline
+SET alname = 'NewName'
+WHERE alcode = 1;
+
+DELETE FROM airline
+WHERE alcode = 2;
+
+ALTER TABLE runway
+ADD new_column VARCHAR(255);
+
+DROP TABLE timeslot;
